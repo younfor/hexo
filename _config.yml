@@ -7,7 +7,8 @@ title: Younfor
 subtitle: 随心而笔
 description: 时间是最好的老师
 author: younfor
-language: zh-CN
+avatar: images/avatar.jpeg
+anguage: zh-CN
 timezone:
 
 # URL
@@ -81,7 +82,7 @@ feed:
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: prontera
+theme: material-flow
 stylus:
   compress: true
 
