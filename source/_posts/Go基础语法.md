@@ -3,19 +3,19 @@ title: Go基础语法.md
 date: 2018-06-09 21:11:17
 categories: Go语言
 ---
- # 1. 编码风格
-## 1.1 gofmt
+ # 编码风格
+## gofmt
 一般会自动规范代码风格
- ## 1.2 注释&驼峰命名
+ ##注释&驼峰命名
 /* 
     需要注释的内容
 */
-## 1.3 包名
+## 包名
 ```
 import "bytes"
 ```
-# 2. 变量
-## 2.0 常量
+# 变量
+## 常量
 ```
 type ByteSize float64
 const (
@@ -31,14 +31,14 @@ func main() {
 	// size %f 64
 }
 ```
-## 2.1 声明
+## 声明
 ```
 var (
     ErrInternal = errors.New("error1")
     ErrInternal2 = errors.New("error2")
 )
 ```
-## 2.2 初始化
+## 初始化
 Go语言提供了New和make
 ### new
 ```
@@ -70,8 +70,8 @@ make([]int, 10, 100)
 // 一般用法, 返回的不是指针
 v := make([]int, 100) 
 ```
-# 3. 分支循环
-## 3.1 if
+# 分支循环
+## if
 ```
 if i < f() {
     g()
@@ -82,7 +82,7 @@ if err := file.Chmod(0664); err != nil {
     return err
 }
 ```
-## 3.2 for
+## for
 ```
 for init; condition; post {}
 for condition {}
@@ -111,7 +111,7 @@ for i, j := 0, len(a) - 1; i < j; i,j = i+1, j-1 {
     a[i], a[j] = a[j], a[i]
 }
 ```
-## 3.3 switch
+## switch
 ```
 switch {
 case '0' <= c && c <= '9' :
@@ -136,14 +136,14 @@ case int:
     fmt.Printf("integer %d\n", t)
 }
 ```
-# 4. 函数
-## 4.1 多值返回
+# 函数
+## 多值返回
 ```
 func (file *File) Write(b []byte) (n int, err error)
 ```
-## 4.2 defer
+## defer
 无论何种路径都能返回，如果定义多个按定义顺序相反顺序执行
-# 5. 切片(数组)
+# 切片(数组)
 ```
 // 切片是按值传递，但是底层可能是同一份数组
 // 二维切片
@@ -155,7 +155,7 @@ test := LinesOfTest{
     []byte("abc"),
 }
 ```
-## 5.1 append
+## append
 ```
 // 增加元素
 x := []int{1,2,3}
@@ -166,7 +166,7 @@ y := []int{1,2,3}
 x = append(x, y...)
 fmt.Println(x)
 ```
-# 6. Map映射
+# Map映射
 ```
 attend := map[string]bool{
     "Ann" : true,
@@ -187,12 +187,12 @@ delete(timeZone, "PDT")
 File{fd, name, nil, 0}
 File{fd: fd, name: name}
 make([]int, 100)
-# 7. 函数
-## 7.1 init
+# 函数
+## init
 在变量初始化之后，导入包初始化之后，就会初始化
 `以指针或值为接收者的区别在于：值方法可通过指针和值调用， 而指针方法只能通过指针来调用。
-# 8. 接口
-## 8.1 断言
+# 接口
+## 断言
 ```
 str, ok := value.(string)
 if ok {
@@ -200,7 +200,7 @@ if ok {
 } else {
 }
 ```
-## 8.2 内嵌
+## 内嵌
 ```
 // 接口
 type Reader interface {
@@ -220,14 +220,14 @@ type ReaderWriter struct {
     *Writer
 }
 ```
-# 9 并发
-## 9.1 chan
+# 并发
+## chan
 ```
 cj := make(chan int)                // 无缓冲信道
 cj := make(chan int, 0)            // 无缓冲信道
 cj := make(chan *os.File, 100) // 指向文件指针的带缓冲信道
 ```
-## 9.2 例子
+## 例子
 ```
 c := make(chan int)
 go func() {
@@ -249,4 +249,4 @@ func Serve(queue chan *Request) {
         }
 }
 ```
-# 10 panic&recover
+# panic&recover

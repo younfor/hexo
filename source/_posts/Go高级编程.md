@@ -6,8 +6,8 @@ tags: [Go]
 ---
 
 https://books.studygolang.com/advanced-go-programming-book/ch2-cgo/ch2-04-memory.html
-# 1.数组
-## 1.1数组定义方式
+# 数组
+## 数组定义方式
 ```
 var a [3]int                    // 定义一个长度为3的int类型数组, 元素全部为0
 
@@ -18,7 +18,7 @@ var c = [...]int{2: 3, 1: 2}    // 定义一个长度为3的int类型数组, 元
 var d = [...]int{1, 2, 4: 5, 6} // 定义一个长度为6的int类型数组, 元素为 1, 2, 0, 0, 5, 6
 
 ```
-## 1.2数组指针
+## 数组指针
 ```
 var a = [...]int{1, 2, 3} // a 是一个数组
 
@@ -36,7 +36,7 @@ for i, v := range b {     // 通过数组指针迭代数组的元素
 
 }
 ```
-## 1.3数组遍历
+## 数组遍历
 ```
     for i := range a {
 
@@ -57,7 +57,7 @@ for i, v := range b {     // 通过数组指针迭代数组的元素
     }
 
 ```
-## 1.4函数数组、管道数组
+## 函数数组、管道数组
 ```
 // 图像解码器数组
 
@@ -84,7 +84,7 @@ var unknown2 = [...]interface{}{123, "你好"}
 var chanList = [2]chan int{}
 
 ```
-## 1.5空数组
+## 空数组
 长度为0的数组在内存中并不占用空间。空数组虽然很少直接使用，但是可以用于强调某种特有类型的操作时避免分配额外的内存空间，比如用于管道的同步操作：
 ```
     c1 := make(chan [0]int)
@@ -114,8 +114,8 @@ var chanList = [2]chan int{}
 
     <-c2
 ```
-# 2.字符串
-## 2.1类似切片
+# 字符串
+## 类似切片
 字符串虽然不是切片，但是支持切片操作，不同位置的切片底层也访问的同一块内存数据（因为字符串是只读的，相同的字符串面值常量通常是对应同一个字符串常量）：
 ```
 s := "hello, world"
@@ -138,7 +138,7 @@ fmt.Println("len(s1):", (*reflect.StringHeader)(unsafe.Pointer(&s1)).Len) // 5
 
 fmt.Println("len(s2):", (*reflect.StringHeader)(unsafe.Pointer(&s2)).Len) // 5
 ```
-# 3.切片(slice)
+# 切片(slice)
 ```
 var (
 
@@ -162,7 +162,7 @@ var (
 
 )
 ``
-## 3.1添加切片
+## 添加切片
 ```
 var a []int
 
@@ -194,7 +194,7 @@ copy(a[i+len(x):], a[i:]) // a[i:]向后移动len(x)个位置
 
 copy(a[i:], x)            // 复制新添加的切片
 ```
-## 3.2删除切片
+## 删除切片
 需要重新赋值切片防止内存泄漏
 ```
 func FindPhoneNumber(filename string) []byte {
@@ -261,8 +261,8 @@ a = a[:copy(a[i:], a[i+1:])]  // 删除中间1个元素
 
 a = a[:copy(a[i:], a[i+N:])]  // 删除中间N个元素
 ```
-# 4.并发模型
-## 4.1加锁
+# 并发模型
+## 加锁
 ```
 var total struct {
 
@@ -273,7 +273,7 @@ var total struct {
 }
 通过sync.lock()和sync.Done()
 ```
-## 4.2原子
+## 原子
 ```
 import (
 
@@ -314,7 +314,7 @@ func main() {
 
 }
 ```
-## 4.3单例
+## 单例
 ```
 我们可以将通用的代码提取出来，就成了标准库中sync.Once的实现：
 type Once struct {
@@ -372,7 +372,7 @@ func Instance() *singleton {
 
 }
 ```
-## 4.4带缓冲chan
+## 带缓冲chan
 测试了下才知道原来
 <-chan int  像这样的只能接收值
 chan<- int  像这样的只能发送值
@@ -431,7 +431,7 @@ func main() {
 //其实也可以用
 sync.WaitGroup
 ```
-## 4.5 select
+## select
 ```
 基于select实现的管道的超时判断：
     select {
@@ -511,5 +511,5 @@ func main() {
 
 }
 ```
-# 5.异常
+# 异常
 异常必须放在defer func () {}()
