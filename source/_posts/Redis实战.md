@@ -80,7 +80,8 @@ hincrby myhash field3 -8
 ```
 //判断filed是否存在
 hexists myhash filed1
-``` 
+```
+ 
 * hlen 
 返回filed的数量
 * hdel
@@ -140,7 +141,8 @@ set 是集合， hashtable实现， sorted_set是跳表
 ```
 // 与sdiff的区别就是会存起来
 sdiffstore myset1 myset2 tomyset3
-``` 
+```
+ 
 * sinter sinterstore
 交集
 * sunion sunionstore
@@ -150,6 +152,7 @@ sdiffstore myset1 myset2 tomyset3
 smove mysetfrom mysetto three
 // 把three从from移动到to
 ```
+
 * scard
 返回元素个数
 * sismember
@@ -165,10 +168,12 @@ zadd myzset 3 "three"
 zrange myzset 0 -1 withscores // zrevrange是从大到小的顺序
 // "one" "1" "two" "2" "three" "3"
 ```
+
 * zincrby
 ```
 zincrby myset 2 "one" // 增加分数
 ```
+
 * zrank zrevrank
 从小到大返回 下标, 从大到小返回 下标
 * zrangebyscore
@@ -200,6 +205,7 @@ move age 1
 select 1
 get age
 ```
+
 * persist
 移除过期时间
 * randomkey
