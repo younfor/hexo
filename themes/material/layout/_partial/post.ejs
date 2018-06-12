@@ -1,0 +1,33 @@
+<article class="post reveal<%= (post.title) ? "" : "no-title" %>">
+  <section class="meta">
+    <% if (post.title) { %>
+    <h2 class="title">
+      <a href="<%- url_for(post.path) %>">
+        <%= post.title %>
+      </a>
+    </h2>
+    <% } %>
+    <time>
+      <%= date(post.date, 'MMM D, YYYY') %>
+    </time>
+		<%- partial('categories',{post:post}) %>
+  </section>
+  <section class="article typo">
+    <% var br = post.content.indexOf('\n') %>
+    <% if(br < 0) { %>
+      <%- post.content %>
+    <% } else { %>
+      <%- post.content.substring(0, br) %>
+      <div class="readmore">
+        <a href="<%- url_for(post.path) %>">Read More</a>
+      </div>
+    <% } %>
+    <% if (post.tags && post.tags.length) { %>
+	  <div class="full-width auto-padding tags">
+      <% post.tags.each(function(item){ %>
+        <a href="<%- url_for(item.path) %>"><%=item.name %></a>
+      <%})%>
+	  </div>
+    <% } %>
+  </section>
+</article>
