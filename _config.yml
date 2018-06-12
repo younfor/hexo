@@ -82,7 +82,7 @@ feed:
 # Extensions
 ## Plugins: http://hexo.io/plugins/
 ## Themes: http://hexo.io/themes/
-theme: material-flow
+theme: material
 stylus:
   compress: true
 
