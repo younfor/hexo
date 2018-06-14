@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://younfor.com/"/>
-  <updated>2018-06-11T07:11:58.425Z</updated>
+  <updated>2018-06-14T07:42:01.926Z</updated>
   <id>http://younfor.com/</id>
   
   <author>
@@ -15,6 +15,36 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MySQL高级知识</title>
+    <link href="http://younfor.com/MySQL%E7%9F%A5%E8%AF%86/"/>
+    <id>http://younfor.com/MySQL知识/</id>
+    <published>2018-06-14T07:21:17.000Z</published>
+    <updated>2018-06-14T07:42:01.926Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="系统命令"><a href="#系统命令" class="headerlink" title="系统命令"></a>系统命令</h1><ul><li>show databases</li><li>show tables</li><li>show columns from customers<br><img src="41590934.png" alt="41590934.png"></li><li>show status<br>显示服务器状态信息</li><li>show create database / show create table xxx<br>显示创表语句<h1 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h1></li><li>select xx from table order by column1 desc, column2;<br>按column1降序，column2升序，默认大小写是一样的</li><li>select xx from table order by column limit 1<br>先排序column，再取第一个</li><li>where xxx order by<br>提示：order by 必须放where之后，where默认不区分大小写</li><li>where xxx is null<br>空值检查</li><li>and or<br>操作符要打括号，and优先级更高</li><li><p>in not</p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">where xxx <span class="keyword">in</span> (<span class="selector-tag">a</span>,<span class="selector-tag">b</span>,c) <span class="comment">// 也可以嵌套select语句</span></span><br><span class="line">where xxx not <span class="keyword">in</span> (<span class="selector-tag">a</span>,<span class="selector-tag">b</span>,c)</span><br></pre></td></tr></table></figure></li><li><p>like</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> prob_name <span class="keyword">from</span> products <span class="keyword">where</span> prod_name <span class="keyword">like</span> <span class="string">'s%e'</span>  // 其中%表示任意字符出现任意次</span><br><span class="line"><span class="keyword">select</span> xxx <span class="keyword">where</span> xxx <span class="keyword">like</span> <span class="string">'_ se'</span> // 其中<span class="string">'_'</span>匹配一个字符</span><br></pre></td></tr></table></figure></li><li><p>regexp (正则)<br>^$可以表示单词的开始和结尾，<code>.</code>表示单个字符</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select xxx where xxx regexp [<span class="string">binary</span>] 'hello .000 | abcd [<span class="string">123</span>][<span class="symbol">5-6</span>]\\.'</span><br></pre></td></tr></table></figure></li></ul><p>其中binary可选参数，表示是否区分大小写<br>其中<code>|</code>表示或者，<code>[]</code>表示匹配里面的多个字符之一<br><code>\\.</code>表示匹配<code>.</code></p><ul><li><p>concat</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">concat</span> (var1, <span class="string">'a'</span>, var2) <span class="keyword">from</span> <span class="keyword">table</span>; //拼接起来</span><br></pre></td></tr></table></figure></li><li><p>as (别名)</p></li><li>upper left length locate lower ltrim right substring</li><li>CurDate CurTime<br>当前日期，当前时间</li><li>Now<br>当前日期+时间</li><li>avg, count, max, min, sum<br>求平均，求总数，最大值等</li><li>group by<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> count<span class="comment">(*) from table group by xxx having count(*)</span> &gt; <span class="number">2</span> <span class="keyword">order</span> <span class="keyword">by</span> xxx;</span><br></pre></td></tr></table></figure></li></ul><h1 id="联结表、组合查询"><a href="#联结表、组合查询" class="headerlink" title="联结表、组合查询"></a>联结表、组合查询</h1><ul><li>默认笛卡尔积<br><code>检索出的行数为第一个表乘以第二个表的行数</code></li><li>inner join table on xx = xx 类似默认笛卡尔积</li><li>left outer join 和 right outer join<br>CROSS JOIN        笛卡尔乘积（所有可能的行对）<br><img src="http://images.csdn.net/syntaxhighlighting/OutliningIndicators/None.gif" alt="None.gif">INNER JOIN        仅对满足连接条件的CROSS中的列<br><img src="http://images.csdn.net/syntaxhighlighting/OutliningIndicators/None.gif" alt="None.gif">LEFT OUTER JOIN        一个表满足条件的行，和另一个表的所有行<br><img src="http://images.csdn.net/syntaxhighlighting/OutliningIndicators/None.gif" alt="None.gif">RIGHT OUTER JOIN        与LEFT相同，但两个表的角色互换<br><img src="http://images.csdn.net/syntaxhighlighting/OutliningIndicators/None.gif" alt="None.gif">FULL OUTER JOIN        LEFT OUTER 和 RIGHT OUTER中所有行的超集</li><li>union / union all<br>其中union会去重<h1 id="数据插入、更新、删除"><a href="#数据插入、更新、删除" class="headerlink" title="数据插入、更新、删除"></a>数据插入、更新、删除</h1></li><li>插入多条数据<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">table</span>(表字段) <span class="keyword">values</span>(xxx),(xxx);</span><br></pre></td></tr></table></figure></li></ul><h1 id="索引"><a href="#索引" class="headerlink" title="索引"></a>索引</h1><h2 id="普通索引"><a href="#普通索引" class="headerlink" title="普通索引"></a>普通索引</h2><p>创建方式如下：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 直接创建索引</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">INDEX</span> index_name <span class="keyword">ON</span> <span class="keyword">table</span>(<span class="keyword">column</span>(<span class="keyword">length</span>))</span><br><span class="line">// 修改表结构的方式添加索引</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">ADD</span> <span class="keyword">INDEX</span> index_name <span class="keyword">ON</span> (<span class="keyword">column</span>(<span class="keyword">length</span>))</span><br><span class="line">// 创建表的时候同时创建索引</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`table`</span> (</span><br><span class="line">    <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT ,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>),</span><br><span class="line">    <span class="keyword">INDEX</span> index_name (title(<span class="keyword">length</span>))</span><br><span class="line"> )</span><br><span class="line">// 删除索引</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">INDEX</span> index_name <span class="keyword">ON</span> <span class="keyword">table</span></span><br></pre></td></tr></table></figure></p><h2 id="唯一索引-和主键索引唯一的区别是可以为null"><a href="#唯一索引-和主键索引唯一的区别是可以为null" class="headerlink" title="唯一索引(和主键索引唯一的区别是可以为null)"></a>唯一索引(和主键索引唯一的区别是可以为null)</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 直接创建索引</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">UNIQUE</span> <span class="keyword">INDEX</span> index_name <span class="keyword">ON</span> <span class="keyword">table</span>(<span class="keyword">column</span>(<span class="keyword">length</span>))</span><br><span class="line">// 修改表结构的方式添加索引</span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">ADD</span> <span class="keyword">UNIQUE</span> index_name <span class="keyword">ON</span> (<span class="keyword">column</span>(<span class="keyword">length</span>))</span><br><span class="line">// 创建表的时候同时创建索引</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`table`</span> (</span><br><span class="line">    <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT ,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>),</span><br><span class="line">   <span class="keyword">UNIQUE</span> index_name (title(<span class="keyword">length</span>))</span><br><span class="line">)</span><br></pre></td></tr></table></figure><p>这里length的意思取字段的前几个字符建立索引，这样的好处是能够灵活控制索引的磁盘空间</p><h2 id="主键索引PK"><a href="#主键索引PK" class="headerlink" title="主键索引PK"></a>主键索引PK</h2><p>一般为自增唯一字段，不允许为空</p><h2 id="组合索引"><a href="#组合索引" class="headerlink" title="组合索引"></a>组合索引</h2><ul><li>从左到右，如果where不按这个顺序不会用索引</li><li>范围查询之后不会再用索引</li><li>跳跃查询也不会用索引<h2 id="全文索引"><a href="#全文索引" class="headerlink" title="全文索引"></a>全文索引</h2></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;系统命令&quot;&gt;&lt;a href=&quot;#系统命令&quot; class=&quot;headerlink&quot; title=&quot;系统命令&quot;&gt;&lt;/a&gt;系统命令&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;show databases&lt;/li&gt;
+&lt;li&gt;show tables&lt;/li&gt;
+&lt;li&gt;show column
+      
+    
+    </summary>
+    
+      <category term="MySQL" scheme="http://younfor.com/categories/MySQL/"/>
+    
+    
+      <category term="技术栈" scheme="http://younfor.com/tags/%E6%8A%80%E6%9C%AF%E6%A0%88/"/>
+    
+      <category term="MySQL" scheme="http://younfor.com/tags/MySQL/"/>
+    
+  </entry>
   
   <entry>
     <title>Redis实战</title>
@@ -40,9 +70,9 @@
       <category term="Redis" scheme="http://younfor.com/categories/Redis/"/>
     
     
-      <category term="Redis" scheme="http://younfor.com/tags/Redis/"/>
-    
       <category term="技术栈" scheme="http://younfor.com/tags/%E6%8A%80%E6%9C%AF%E6%A0%88/"/>
+    
+      <category term="Redis" scheme="http://younfor.com/tags/Redis/"/>
     
   </entry>
   
